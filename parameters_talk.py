@@ -99,7 +99,7 @@ int main(int argc, char ** argv)
 def struct_with_defaults(slide):
     code_slide(
         slide,
-        "ParameterDescriptor",
+        "Parameter Struct",
         "C++",
         """
 struct Params {
@@ -127,7 +127,7 @@ int main(int argc, char ** argv)
 def details(slide):
     code_slide(
         slide,
-        "Parameter Struct",
+        "ParameterDescriptor",
         "C++",
         """
 int main(int argc, char ** argv)
