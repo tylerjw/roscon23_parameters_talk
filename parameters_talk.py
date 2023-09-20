@@ -183,9 +183,21 @@ auto const _ = node->add_on_set_parameters_callback(
 
 
 @slides.slide(debug_boxes=False)
+def copy_pasta(slide):
+    content = logo_header_slide(slide, "Copy Pasta")
+    lst = unordered_list(content.box())
+    lst.item().text("parameter name: 6 separate copies")
+    lst.item().text("declaration: re-init description for each parameter")
+    lst.item().text("validation: convert vector to map")
+
+
+@slides.slide(debug_boxes=False)
 def validate(slide):
     content = logo_header_slide(slide, "")
     content.box().text("30 lines of C++ boilderpate per parameter")
+    content.box(show="2").text(
+        "Before handling of dynamic parameters", elsie.TextStyle(color="red")
+    )
 
 
 @slides.slide(debug_boxes=False)
@@ -198,11 +210,11 @@ def gpl(slide):
     code_slide(
         slide,
         "YAML",
-        "",
+        "toml",  # I know this is yaml, parser doesn't like it though
         """
 minimal_param_node:
     my_string: {
-        type: string
+        type: string,
         description: "Mine!"
         validation: {
             one_of<>: [["world", "base", "home"]]
@@ -266,8 +278,99 @@ int main(int argc, char * argv[])
 
 
 @slides.slide(debug_boxes=False)
+def gpl(slide):
+    content = logo_header_slide(slide, "Built-In Validation Functions")
+    lst = unordered_list(content)
+    lst.item().text("bounds (inclusive)")
+    lst.item().text("less than")
+    lst.item().text("greater than")
+    lst.item().text("less than or equal")
+    lst.item().text("greater than or equal")
+    lst.item(show="2").text("fixed string/array length")
+    lst.item(show="2").text("size of string/array length greater than")
+    lst.item(show="2").text("size of string/array length less than")
+    lst.item(show="2").text("array contains no duplicates")
+    lst.item(show="2").text("array is a subset of another array")
+    lst.item(show="2").text("bounds checking for elements of an array")
+
+
+@slides.slide(debug_boxes=False)
+def gpl(slide):
+    code_slide(
+        slide,
+        "Custom Validation",
+        "C++",
+        """
+#include <rclcpp/rclcpp.hpp>
+#include <fmt/core.h>
+#include <tl_expected/expected.hpp>
+
+tl::expected<void, std::string> multiple_of_23(
+    rclcpp::Parameter const& parameter) {
+  int param_value = parameter.as_int();
+    if (param_value % 23 != 0) {
+        return tl::make_unexpected(fmt::format(
+            "Invalid value '{}' for parameter {}. Must be multiple of 23.",
+            param_value, parameter.get_name());
+    }
+  return {};
+}
+""",
+    )
+
+
+@slides.slide(debug_boxes=False)
+def gpl(slide):
+    content = logo_header_slide(slide, "Other Killer Features")
+    lst = unordered_list(content.box())
+    lst.item().text("Dynamic parameters")
+    lst.item().text("Generation of RCLPY Parameter Libraries")
+    lst.item().text("Generation of Markdown Docs")
+    lst.item().text(
+        "Examples and docs at\n~link{github.com/pickNikRobotics/generate_parameter_library}"
+    )
+
+
+@slides.slide(debug_boxes=False)
 def part3(slide):
     section_title_slide(slide, "Boring?", "Part 3")
+
+
+@slides.slide(debug_boxes=False)
+def gpl(slide):
+    content = logo_header_slide(slide, "Why so many parameters?")
+    lst = unordered_list(content.box())
+    lst.item().text("Users use defaults for most parameters")
+    lst.item(show="2+").text("Authors only test default values")
+    lst.item(show="3+").text("Permutations of parameters grow exponentially")
+    lst.item(show="4+").text(
+        "The more complex your interface the less useful your abstraction"
+    )
+    lst.item(show="5+").text("Resist the urge to expose interior details as parameters")
+
+
+@slides.slide(debug_boxes=False)
+def gpl(slide):
+    content = logo_header_slide(slide, "What is a good parameter?")
+    lst = unordered_list(content.box())
+    lst.item().text("Express user intent (latency or throughput)")
+    lst.item(show="2+").text("Details like buffer sizes scale with hardware")
+    lst.item(show="3+").text(
+        "Leave the door open to improvements in behavior for the user"
+    )
+
+
+@slides.slide(debug_boxes=False)
+def thank_you(slide):
+    content = logo_header_slide(slide, "")
+    content.fbox().text(
+        "Questions?\n~link{github.com/pickNikRobotics/generate_parameter_library}\n",
+        elsie.TextStyle(align="middle"),
+    )
+    content.sbox(p_bottom=20).text(
+        "Slides generated using Elsie\n~link{github.com/tylerjw/roscon23_parameters_talk}",
+        elsie.TextStyle(align="right", size=32),
+    )
 
 
 slides.render("parameters_talk.pdf")
