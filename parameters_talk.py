@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# qr codes!
+
 import elsie
 from elsie.ext import unordered_list
 from elsie.boxtree.box import Box
@@ -325,7 +327,7 @@ def gpl(slide):
     lst.item().text("Generation of RCLPY Parameter Libraries")
     lst.item().text("Generation of Markdown Docs")
     lst.item().text(
-        "Examples and docs at\n~link{github.com/pickNikRobotics/generate_parameter_library}"
+        "Examples and docs at\n~link{github.com/PickNikRobotics/generate_parameter_library}"
     )
 
 
@@ -362,7 +364,7 @@ def gpl(slide):
 def thank_you(slide):
     content = logo_header_slide(slide, "")
     content.fbox().text(
-        "Questions?\n~link{github.com/pickNikRobotics/generate_parameter_library}\n",
+        "Questions?\n~link{github.com/PickNikRobotics/generate_parameter_library}\n",
         elsie.TextStyle(align="middle"),
     )
     content.sbox(p_bottom=20).text(
