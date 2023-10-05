@@ -194,7 +194,7 @@ def copy_pasta(slide):
 @slides.slide(debug_boxes=False)
 def validate(slide):
     content = logo_header_slide(slide, "")
-    content.box().text("30 lines of C++ boilderpate per parameter")
+    content.box().text("30 lines of C++ boilerplate per parameter")
     content.box(show="2").text(
         "Before handling of dynamic parameters", elsie.TextStyle(color="red")
     )
